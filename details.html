@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Property Details</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Styles for carousel images */
+    .carousel-item img {
+      object-fit: cover;
+      height: 80vh;
+      width: 100%;
+    }
+    /* Booking Appointment Container (Hidden by default) */
+    .container2 {
+      width: 100%;
+      max-width: 600px;
+      margin: 30px auto;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+      position: absolute;  /* استخدمنا absolute لتحديد مكانه بالنسبة للصفحة */
+      top: 130%;  /* يحدد الموقع من أعلى الصفحة ليكون في المنتصف */
+      left: 50%;  /* يحدد الموقع من جهة اليسار ليكون في المنتصف */
+      transform: translate(-50%, -50%); /* ينقل العنصر ليكون في المنتصف تمامًا */
+    }
+    .styled-div2 {
+      background: linear-gradient(135deg, #f7f7f7, #345475); /* Gradient background */
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8); /* Shadow for depth effect */
+      text-align: center;
+      animation: slideDown 1s ease-out;
+      width: 100%;
+    }
+    .styled-div2:hover {
+      transform: scale(1.03);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+    }
+    /* Keyframes for slideDown animation */
+    @keyframes slideDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-600px); /* يبدأ من أعلى الصفحة */
+      }
+      40% {
+        opacity: 0;
+        transform: translateY(-300px); /* نصف الطريق */
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0); /* يتوقف في المنتصف العمودي */
+      }
+    }
+
+    /* Styles for the booking form labels and inputs */
+    .form-group2 label {
+      font-size: 1rem;
+      color: #555;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .form-control2 {
+      padding: 16px;
+      font-size: 1rem;
+      border-radius: 15px;
+      border: 1px solid #b0b0b0;
+      margin-bottom: 25px;
+      background-color: #fff;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+    .form-control2:focus {
+      border-color: #888;
+      box-shadow: 0 0 15px rgba(136, 136, 136, 0.5);
+    }
+    /* Styles for the booking button */
+    .appointmentbtn {
+      width: 43%;
+      padding: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 15px;
+      transition: all 0.4s ease;
+      transform: scale(0.98);
+    }
+    .appointmentbtn:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+    .appointmentbtn:active {
+      transform: scale(0.98);
+    }
+    /* Alert message styling */
+    #bookingMessage {
+      margin-top: 20px;
+      display: none;
+    }
+    .user-message {
+    background-color: #2c4661 !important; /* أزرق */
+    color: white;
+}
+.other-message {
+    background-color: #f1f1f1 !important; /* رمادي فاتح */
+    color: black;
+}
+
+  </style>
+</head>
+<body class="bg-light">
+  <!-- Property Details Section -->
+  <div class="container my-5">
+    <!-- Property Title and Address -->
+    <div class="row mb-4 text-center">
+      <div class="col">
+        <h1 class="display-5 p-2 rounded-3 text-white" id="propertyTitle" style="background-color: #2c3e50;">Property Details</h1>
+        <p class="text-muted" id="propertyAddress" style="color: #5079a1;">Address</p>
+      </div>
+    </div>
+    <!-- Property Images Carousel -->
+    <div id="propertyCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+      <div class="carousel-inner" id="carouselImages">
+        <!-- Carousel images will be injected here -->
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!-- Property Details and Description -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <h4>Property Details</h4>
+        <ul class="list-group" id="propertyDetails">
+          <!-- Details will be injected here -->
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h4>Description</h4>
+        <p id="propertyDescription"></p>
+      </div>
+    </div>
+    <!-- Buttons for Chat and Booking -->
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <button class="btn btn-warning btn-lg" id="openChat">Chat</button>
+      <!-- Book Now button with class to trigger the booking div display -->
+      <button class="btn  btn-lg btn-animated2 text-white" style="background-color: #2c4661;">Book Now</button>
+    </div>
+  </div>
+
+  <!-- Booking Appointment Container (Hidden by default) -->
+  <div class="container2" id="bookingContainer">
+    <div class="styled-div2">
+      <h3>Book a Viewing Appointment</h3>
+      <div class="form-group2">
+        <label for="datetime">Preferred Date and Time:</label>
+        <input type="datetime-local" id="datetime" class="form-control form-control2" required>
+      </div>
+      <button type="button" class="btn bg-warning appointmentbtn " onclick="bookAppointment()">Book Appointment</button>
+      <div class="alert" id="bookingMessage"></div>
+    </div>
+  </div>
+  <!-- Chat Container (Hidden by default) -->
+<div class="container2 " id="chatContainer">
+  <div class="styled-div2">
+    <h3>Chat with Owner</h3>
+    <div class="border rounded p-3 mb-3" id="chatBox" style="height: 300px; overflow-y: auto; background-color: #f8f9fa;"></div>
+    <div class="input-group">
+      <input type="text" class="form-control" id="chatInput" placeholder="Type a message...">
+      <button class="btn bg-warning" id="sendMessage">Send</button>
+    </div>
+  </div>
+</div>
+
+  <script>
+   // Function to fetch and display property details from the JSON file (pro.json)
+   async function fetchPropertyDetails() {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const propertyId = urlParams.get('property_id');
+        const response = await fetch('properties.json'); // تأكد من أن اسم الملف ومساره صحيحان
+        const data = await response.json();
+        const property = data.properties.find(p => p.property_id == propertyId);
+        if (property) {
+          // نستخدم الوصف كعنوان مؤقتاً، ويمكنك تعديله لاحقاً إذا رغبت
+         
+          document.getElementById('propertyAddress').innerText = property.address;
+          document.getElementById('propertyDescription').innerText = property.description;
+          const propertyDetailsList = document.getElementById('propertyDetails');
+          propertyDetailsList.innerHTML = `
+            <li class="list-group-item">Price: <strong>$${property.price}</strong></li>
+            <li class="list-group-item">Area: <strong>${property.area} sq ft</strong></li>
+            <li class="list-group-item">Bedrooms: <strong>${property.number_of_rooms}</strong></li>
+            <li class="list-group-item">Bathrooms: <strong>${property.number_of_bathroom}</strong></li>
+            <li class="list-group-item">Status: <strong>${property.status}</strong></li>
+          `;
+          const carouselImages = document.getElementById('carouselImages');
+          carouselImages.innerHTML = property.images.map((image, index) => {
+            return `
+              <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                <img src="${image}" class="d-block w-100 img-fluid" alt="Property Image ${index + 1}">
+              </div>
+            `;
+          }).join('');
+        }
+      } catch (error) {
+        console.error('Error fetching property details:', error);
+      }
+    }
+
+    // Function to handle appointment booking validation and message display
+    function bookAppointment() {
+      const selectedDate = document.getElementById('datetime').value;
+      const currentDate = new Date();
+      const selectedDateObj = new Date(selectedDate);
+      const messageDiv = document.getElementById('bookingMessage');
+      // Clear any previous messages
+      messageDiv.style.display = 'none';
+      messageDiv.style.backgroundColor='#2c3e50';
+      messageDiv.style.color='white'
+      messageDiv.classList.remove('alert-success', 'alert-danger');
+      
+      if (selectedDateObj > currentDate) {
+        messageDiv.innerHTML = 'Your appointment has been successfully send!';
+        messageDiv.classList.add('alert', 'alert-success');
+        messageDiv.style.display = 'block';
+      } else {
+        messageDiv.innerHTML = 'Error: Please select a date and time in the future.';
+        messageDiv.classList.add('alert', 'alert-danger');
+        messageDiv.style.display = 'block';
+      }
+    }
+
+    // Show the booking appointment container when the "Book Now" button is clicked
+    document.querySelector(".btn-animated2").addEventListener("click", function() {
+      const container = document.getElementById("bookingContainer");
+      container.style.display = "block";
+      container.style.opacity = "1";
+    });
+
+    // Fetch property details when the page loads
+    fetchPropertyDetails();
+    const chatBox = document.getElementById("chatBox");
+  const chatInput = document.getElementById("chatInput");
+  const sendMessage = document.getElementById("sendMessage");
+  const chatContainer = document.getElementById("chatContainer");
+  const openChat = document.getElementById("openChat");
+
+  let messages = [
+    { sender: "User", content: "Hello, I want more information about the property." },
+    { sender: "Owner", content: "Sure, let me know what you need to know!" }
+  ];
+
+  function renderMessages() {
+    chatBox.innerHTML = "";
+    messages.forEach(msg => {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = `d-flex ${msg.sender === "User" ? "justify-content-end" : "justify-content-start"} mb-2`;
+        msgDiv.innerHTML = `
+            <div class="p-2 rounded ${msg.sender === "User" ? "user-message" : "other-message"}" 
+                style="max-width: 70%;">
+                <strong>${msg.sender}:</strong>
+                <div>${msg.content}</div>
+            </div>`;
+        chatBox.appendChild(msgDiv);
+    });
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+
+
+  sendMessage.addEventListener("click", function() {
+    if (chatInput.value.trim() === "") return;
+    messages.push({ sender: "User", content: chatInput.value });
+    chatInput.value = "";
+    renderMessages();
+  });
+
+  openChat.addEventListener("click", function() {
+    chatContainer.style.display = "block";
+    chatContainer.style.opacity = "1";
+  });
+
+  renderMessages();
+  const bookingContainer = document.getElementById("bookingContainer");
+  
+  const bookNowButton = document.querySelector(".btn-animated2");
+  const openChatButton = document.getElementById("openChat");
+
+  // إظهار الحجز وإخفاء الشات عند الضغط على زر "Book Now"
+  bookNowButton.addEventListener("click", function () {
+    chatContainer.style.display = "none"; // إخفاء الشات
+    bookingContainer.style.display = "block";
+    bookingContainer.style.opacity = "1";
+  });
+
+  // إظهار الشات وإخفاء الحجز عند الضغط على زر "Chat"
+  openChatButton.addEventListener("click", function () {
+    bookingContainer.style.display = "none"; // إخفاء الحجز
+    chatContainer.style.display = "block";
+    chatContainer.style.opacity = "1";
+  });
+  
+    
+  </script>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

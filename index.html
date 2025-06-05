@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Modern Business - Start Bootstrap Template</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="css/all.css">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="css/styles.css" rel="stylesheet" />
+    <style>
+       body {
+    overflow-x: hidden;
+}
+
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+        nav {
+            z-index: 100;
+        }
+
+         .header ul li a:hover {
+            /* font-size: 1.2em;
+          
+            transition: font-size 0.3s ease-in-out; */
+    }
+
+        .headerimg {
+            width: 10vw;
+            height: 10vh;
+        }
+
+        .homepage {
+    background-image: url(./images/main.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+    
+}
+
+        .heroimg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+           
+        }
+
+        /* search */
+        
+        .homeimg {
+            height: 50vh;
+            width: 80%;
+        }
+        .btn-primary:hover {
+            background-color: #5a52e3;
+            border-color: #5a52e3;
+        }
+       
+        /* ///////////////////notification////////////////////*/
+        .notification-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+            position: absolute;
+            top: 5%;
+            right: 5%;
+        }
+
+        /* تصميم صندوق الإشعارات */
+        .styled-div-notification {
+            background: linear-gradient(135deg, #f7f7f7, #d4d4d4);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            animation: slideDown 1s ease-out;
+            width: 100%;
+        }
+
+        .styled-div-notification:hover {
+            transform: scale(1.03);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-600px);
+            }
+
+            40% {
+                opacity: 0;
+                transform: translateY(-300px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* عند إظهار الإشعارات */
+        .show-notifications {
+            display: block;
+            opacity: 1;
+        }
+
+        /* باقي التنسيق مثل السابق */
+        .notification {
+            height: 100vh;
+            display: flex;
+            justify-content: start;
+            align-items: top;
+            background-color: #f8f9fa;
+        }
+
+        .notification_container {
+            background: rgb(230, 235, 238);
+            padding: 20px;
+            border-radius: 12px;
+            width: 400px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            font-family: sans-serif;
+        }
+
+        .title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 28px;
+            color: #343a40;
+            font-weight: 600;
+        }
+
+        .clear_btn {
+            padding: 10px 20px;
+            border: none;
+            background: #17a3b8f3;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .clear_btn:hover {
+            background: #138496;
+        }
+
+        .notification_list {
+            list-style: none;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .notification_list li {
+            background: #fff;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #333;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .notification_list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            background-color: #c6dadef3;
+        }
+
+        .loading {
+            color: gray;
+            font-style: italic;
+            text-align: center;
+            padding: 15px;
+        }
+         /* ضبط النافبار */
+         .navbar-nav {
+                display: flex;
+                gap: 20px; /* المسافة بين اللينكات */
+            }
+        
+            .nav-link {
+                position: relative;
+                padding: 8px 15px;
+                color: white;
+                font-weight: 500;
+                transition: color 0.3s ease-in-out;
+            }
+        
+            /* before & after لإنشاء المربع حول النص */
+            .nav-link::before,
+            .nav-link::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border: 2px solid white;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            }
+        
+            /* المربع العلوي */
+            .nav-link::before {
+                top: 0;
+                left: 0;
+                transform: scaleX(0);
+                transform-origin: left;
+            }
+        
+            /* المربع السفلي */
+            .nav-link::after {
+                bottom: 0;
+                right: 0;
+                transform: scaleX(0);
+                transform-origin: right;
+            }
+        
+            /* التأثير عند hover */
+            .nav-link:hover {
+                color: white;
+            }
+        
+            .nav-link:hover::before,
+            .nav-link:hover::after {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+            .heart{
+                margin-left: 10px;
+                font-size: 25px;
+                color: #6c63ff;
+            }
+             /* comments */
+             .comments-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .comments-slider {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.5s ease-in-out;
+            width: max-content;
+        }
+
+        .comments-card {
+            width: 320px;
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #b3cadc, #0b3553);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            color: white;
+            position: relative;
+        }
+        .comments-card:hover{
+            transform: scale(1.05);
+        }
+
+        .comments-card-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .comments-card-body {
+            position: relative;
+            z-index: 1;
+        }
+
+        .comments-card-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .comments-stars {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .comments-stars i {
+            color: gold;
+        }
+
+        .comments-btn {
+            background-color: #ff9f1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        .comments-btn:hover {
+            background-color: #d97706;
+        }
+
+        .comments-prev-btn, .comments-next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.6);
+            color: #b7d6ed;
+            border: none;
+            padding: 15px 22px;
+            cursor: pointer;
+            font-size: 26px;
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .comments-prev-btn { left: 10px; }
+        .comments-next-btn { right: 10px; }
+
+        .comments-prev-btn:hover, .comments-next-btn:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+/* //////////////// category//////////////////// */
+.category-slider-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            padding: 10px 0;
+        }
+        .category-slider {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.5s ease-in-out;
+            width: max-content;
+        }
+        .card {
+            width: 320px;
+            border-radius: 15px;
+            overflow: hidden;
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #b3cadc, #0b3553);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+        .card-img-top {
+            width: 100%;        /* لجعل الصورة تأخذ عرض البطاقة بالكامل */
+            height: 200px;      /* يمكنك تعديل هذا الرقم حسب الحاجة */
+            object-fit: cover;  /* يضمن أن الصورة تتناسب مع الأبعاد المحددة دون تشويه */
+        }
+        .btn-primary {
+            background-color: #ff9f1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .btn-primary:hover {
+            background-color: #d97706;
+        }
+
+        /* تصميم الأسهم */
+        .prev-btn, .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.6);
+            color: #b7d6ed;
+            border: none;
+            padding: 15px 22px;
+            cursor: pointer;
+            font-size: 26px;
+            border-radius: 50%;
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* إضافة الظل */
+        }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        .prev-btn:hover, .next-btn:hover {
+            background: rgba(255, 255, 255, 0.8); /* تغيير الخلفية عند التمرير */
+        }
+         
+/* تحسين ألوان وتنسيق الـ Navbar */
+
+/* Navbar الأول */
+#last-nav {
+    background-color: #2c3e50 !important; /* لون أزرق داكن أنيق */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#last-nav .navbar-brand {
+    color: #f8f9fa !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#last-nav .nav-link {
+    color: #f8f9fa !important;
+    transition: color 0.3s ease-in-out;
+}
+
+#last-nav .nav-link:hover {
+    color: #f39c12 !important; /* لون برتقالي جذاب عند التحويل */
+}
+
+/* Navbar الثاني */
+#nav-hidden {
+    background-color: rgba(44, 62, 80, 0.9) !important; /* لون أزرق داكن شفاف */
+    
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#nav-hidden .nav-link {
+    color: #f8f9fa !important;
+    transition: color 0.3s ease-in-out;
+}
+
+#nav-hidden .nav-link:hover {
+    color: #f39c12 !important;
+}
+
+/* الأزرار */
+.btn-secondary {
+    background-color: #f39c12 !important; /* لون برتقالي متناسق */
+    border-color: #e67e22 !important;
+    color: #fff !important;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-secondary:hover {
+    background-color: #e67e22 !important;
+}
+
+/* أيقونات وأزرار إضافية */
+.heart i {
+    color: #f8f9fa;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.heart:hover i {
+    color: #f39c12;
+}
+/* contact */
+@media (max-width: 767px) {
+            .contact-box {
+                background: url('images/10.jpg') no-repeat center center;
+                background-size: cover;
+                color: white;
+                padding: 40px;
+                border-radius: 10px;
+            }
+            .contact-box form {
+                background: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+
+        <nav class="navbar navbar-expand-lg bg-secondary  position-fixed w-100" id="last-nav" >
+            <div class="container px-5" >
+                <a class="navbar-brand" href="index.html">Samsarha</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#comments-section">comments</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#category">Category</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-opacity-75 w-100 position-fixed" id="nav-hidden">
+            <div class="container px-5 header">
+         
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav d-flex align-items-center">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#comments-section">comments</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#category">Category</a></li>
+                        <li><a href="./addProperty.html" class="btn btn-secondary rounded-3 px-3 py-2">Add Ad</a></li>
+                        <li><a href="" class="btn btn-secondary rounded-3 px-3 py-2" id="logout">logout</a></li>
+                    </ul>
+                </div>
+        
+             
+                <a href="profile.html">
+                    <img src="./images/1.jpg" alt="Profile" class="rounded-circle" width="40" height="40">
+                </a>
+               
+                    <ul class="navbar-nav d-flex align-items-center" >
+                        <a class="heart" href="#" id="notificationIcon">
+                            <i class="fas fa-bell"></i>
+                        </a>
+                    </ul>
+            </div>
+        </nav>
+
+        
+     
+        <section class="bg-success py-5 homepage">
+            <div class="container px-5 heroimg">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-8 col-xl-7 col-xxl-6">
+                        <div class="my-5 text-center text-xl-start  px-4 py-3 rounded-4"  id="login" style="background-color: #2c3e50; opacity:0.9">
+                            <h1 class="display-5 fw-bolder text-white mb-2">Find Your Perfect Home with Ease!</h1>
+                            <p class="lead fw-normal text-white-50 mb-4">Discover thousands of properties for sale or rent, and book a viewing for your dream home with just one click.</p>
+                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="Login.html" >Login</a>
+                                <a class="btn btn-outline-light btn-lg px-3" href="Register.html">Sign-up</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-4 searchdiv bg-black bg-opacity-50 rounded-4  py-2 position-absolute top-50 start-50 translate-middle w-75 " id="home-hidden">
+
+
+                <form id="searchForm" class="mb-4" method="GET" action="results.html">
+                    <div class="row  ms-lg-5 ms-md-2 ms-sm-1 pt-4 w-100">
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3  ">
+                            <label for="category" class="text-white">Category</label>
+                            <select id="category" name="category" class="form-control">
+                                <option value="">All Categories</option>
+                                <option value="1">Residential</option>
+                                <option value="2">Recreational</option>
+                                <option value="3">Commercial</option>
+                                <option value="4">Agricultural</option>
+                                <option value="5">Educational</option>
+                                <option value="6">Industrial</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <label for="maxPrice" class="text-white">Max Price</label>
+                            <input type="number" id="maxPrice" name="maxPrice" class="form-control"
+                                placeholder="Enter max price">
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                            <label for="status" class="text-white">Status</label>
+                            <select id="status" name="status" class="form-control">
+                                <option value="">All Statuses</option>
+                                <option value="Sell">For Sale</option>
+                                <option value="Rent">For Rent</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-12 mb-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+             
+        </section>
+        <!-- /////////////////////////// search  ///////////////////////////////// -->
+       
+        <!-- /////////////////////////notification /////////////////////////// -->
+
+
+        <div class="notification-container" id="notificationContainer">
+            <div class="styled-div-notification">
+                <div class="title-bar">
+                    <h2 class="title">🔔 Notifications</h2>
+                    <button id="clearNotifications" class="clear_btn" style="background-color: #2c3e50;">Clear All</button>
+                </div>
+                <ul id="notificationList" class="notification_list">
+                    <li class="loading">Loading notifications...</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Features section-->
+
+
+        <!--//////////////////////category//////////////////////////////-->
+        <section id="category" class="py-5" style="background-color:#f1f0ee; color:#15304a; position: relative; overflow: hidden;">
+            <div class="container px-5 my-5">
+                <div class="text-center m-1 p-1">
+                    <h2>Our Categories</h2>
+                </div>
+                <div class="category-slider-container">
+                    <div class="category-slider" id="category-slider"></div>
+                </div>
+                <!-- الأزرار المعدلة -->
+                <button class="prev-btn" type="button" id="prevBtn">&#8249;</button>
+                <button class="next-btn" type="button" id="nextBtn">&#8250;</button>
+            </div>
+        </section>
+         <!--  /////////////////////////comments////////////////////////////////// -->
+         <section id="comments-section" class="container" style=" color:#15304a; position: relative; overflow: hidden;">
+            <div class="comments-container p-5  ">
+                <div class="text-center m-1 p-3">
+                    <h2>Comments</h2>
+                </div>
+                <div class="comments-slider-container">
+                    <div class="comments-slider" id="comments-slider">
+                        <!-- Comments will be loaded here -->
+                    </div>
+                </div>
+                <button class="comments-prev-btn" type="button" id="comments-prev-btn">&#8249;</button>
+                <button class="comments-next-btn" type="button" id="comments-next-btn">&#8250;</button>
+            </div>
+        </section>
+        <!-- ///////////////////////////// about us/////////////////////////////// -->
+        <section id="about" class="py-5" style="background-color:#f1f0ee;">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-12">
+                        <h2 class="display-4" style="color:#15304a;">About samsarha</h2>
+                        <p class="lead text-muted" style="color:#15304a;">A platform to help you find the best properties for sale or rent.</p>
+                    </div>
+                </div>
+                <div class="row align-items-stretch" style="background-color:#f1f0ee;">
+                    <!-- Image Column -->
+                    <div class="col-md-6 mb-4 d-flex align-items-center">
+                        <img src="./images/img7.jpg" alt="About Smserha"
+                            class="img-fluid rounded shadow-lg w-100 h-100 object-cover mt-2 p-2" />
+                    </div>
+
+                    <!-- Text Column -->
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="w-100">
+                            <h3 class="mb-4" style="color:#15304a;">Welcome to samsarha</h3>
+                            <p class="text-muted" style="color:#15304a;">At samsarha, we are dedicated to providing the most reliable and
+                                user-friendly platform for property listings. Whether you're looking to buy, sell, or
+                                rent a property, Smserha offers you a wide range of options with real-time communication
+                                between buyers and sellers. Our mission is to make the real estate process as easy and
+                                efficient as possible for everyone.</p>
+                            <p class="text-muted">We bring together property owners and prospective buyers or renters
+                                through a simple, transparent, and secure platform. Our advanced features include
+                                property listings, booking viewings, and direct messaging with owners, all in one place.
+                            </p>
+                            <p><a href="#category" class="btn btn-primary">Explore</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+ <!-- ////////////////     contact     //////////////// -->
+ 
+ <div class="container my-5" id="contact">
+    
+    <div class="container" id="contact">
+        <div class="row text-center">
+            <div class="col-12">
+                <h2 class="display-4 text-capitalize" style="color:#15304a;">contact us</h2>
+                <p class="lead text-muted" style="color:#15304a;">For any inquiries or support, please contact the admin through the form below, and our team will respond as soon as possible.</p>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center vh-100">
+            <div class="col-md-10">
+                <div class="contact-box d-flex flex-column flex-md-row justify-content-center align-items-center border rounded shadow-sm bg-light p-4">
+                    <!-- الصورة العادية على الشاشات الكبيرة -->
+                    <div class="col-md-6 text-center image-container d-none d-md-block">
+                        <img src="images/10.jpg" class="img-fluid rounded" alt="Contact Image">
+                    </div>
+                    <!-- الفورم -->
+                    <div class="col-12 col-md-6 mx-3">
+                        <form id="contact-form">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   
+
+    </main>
+    <!-- Footer-->
+    <footer class=" py-4 mt-auto" style="background-color: #0a233b;;">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto">
+                    <div class="small m-0 text-white">Copyright &copy; Graduation 2025</div>
+                </div>
+                <div class="col-auto">
+                    <a class="link-light small" href="#!">Privacy</a>
+                    <span class="text-white mx-1">&middot;</span>
+                    <a class="link-light small" href="#!">Terms</a>
+                    <span class="text-white mx-1">&middot;</span>
+                    <a class="link-light small" href="#!">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</body>
+</html>
+
+    <!-- //////////////////////notification//////////////////////////// -->
+    <script>
+        // search//////////////////////////////////
+        
+        document.addEventListener("DOMContentLoaded", function () {
+    let lastNav = document.getElementById("last-nav"); // الناف القديم
+    let newNav = document.getElementById("nav-hidden"); // الناف الجديد
+    let username = localStorage.getItem("userData"); // استرجاع اسم المستخدم من localStorage
+    
+    
+
+    if (username) {
+        if (lastNav) lastNav.style.display = "none"; // إخفاء الناف القديم
+        if (newNav) newNav.style.display = "block";  // إظهار الناف الجديد
+    } else {
+        if (lastNav) lastNav.style.display = "block"; // إبقاء الناف القديم مرئيًا
+        if (newNav) newNav.style.display = "none";  // إبقاء الناف الجديد مخفيًا
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    let loginDiv = document.getElementById("login"); // الديف الخاص بتسجيل الدخول
+    let homeDiv = document.getElementById("home-hidden"); // الديف الخاص بالصفحة الرئيسية
+    let username = localStorage.getItem("userData"); // التحقق من تسجيل الدخول
+
+    console.log("userData:", username); // عرض اسم المستخدم في الكونسول للتحقق
+
+    if (username) {
+        if (loginDiv) loginDiv.style.display = "none"; // إخفاء واجهة تسجيل الدخول
+        if (homeDiv) homeDiv.style.display = "block";  // إظهار الصفحة الرئيسية
+    } else {
+        if (loginDiv) loginDiv.style.display = "block"; // إبقاء تسجيل الدخول مرئيًا
+        if (homeDiv) homeDiv.style.display = "none";   // إبقاء الصفحة الرئيسية مخفية
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    let profileImg = document.querySelector("a[href='profile.html'] img"); // الحصول على عنصر الصورة
+    let storedImage = localStorage.getItem("profilePic"); // استرجاع الصورة المخزنة
+
+    if (storedImage) {
+        profileImg.src = storedImage; // تحديث الصورة
+    }
+});
+document.getElementById("logout").addEventListener("click", function (event) {
+    event.preventDefault(); // منع الانتقال الفوري للرابط الفارغ
+
+    // حذف بيانات المستخدم من localStorage
+    localStorage.removeItem("userData");
+
+    // إعادة التوجيه لصفحة تسجيل الدخول
+    window.location.href = "login.html"; // استبدل "login.html" بصفحتك الفعلية
+});
+
+
+  
+        document.getElementById("searchForm").addEventListener("submit", function (event) {
+            // التحقق من صحة الحقول
+            const category = document.getElementById("category").value;
+            const maxPrice = document.getElementById("maxPrice").value;
+            const status = document.getElementById("status").value;
+
+            // إذا كان هناك حقل فارغ
+            if (!category || !maxPrice || !status) {
+                event.preventDefault(); // منع إرسال النموذج
+                alert("Please fill in all fields.");
+            }
+        });
+
+
+        // notification///////////////////////
+        document.addEventListener("DOMContentLoaded", function () {
+            const notificationIcon = document.getElementById("notificationIcon");
+            const notificationContainer = document.getElementById("notificationContainer");
+            const notificationList = document.getElementById("notificationList");
+            const clearNotificationsBtn = document.getElementById("clearNotifications");
+
+            // جلب الإشعارات عند فتح القائمة
+            async function fetchNotifications() {
+                try {
+                    const response = await fetch("notifications.json");
+                    const notifications = await response.json();
+                    renderNotifications(notifications);
+                } catch (error) {
+                    notificationList.innerHTML = '<li class="error">Failed to load notifications.</li>';
+                }
+            }
+
+            // عرض الإشعارات
+            function renderNotifications(notifications) {
+                notificationList.innerHTML = "";
+
+                notifications.forEach(notification => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = notification.text;
+                    notificationList.appendChild(listItem);
+                });
+            }
+
+            // عند النقر على أيقونة الجرس، تظهر أو تختفي قائمة الإشعارات
+            notificationIcon.addEventListener("click", function (event) {
+                event.preventDefault();
+                if (notificationContainer.classList.contains("show-notifications")) {
+                    notificationContainer.classList.remove("show-notifications");
+                } else {
+                    fetchNotifications(); // جلب البيانات عند الفتح
+                    notificationContainer.classList.add("show-notifications");
+                }
+            });
+
+            // إخفاء الإشعارات عند النقر في أي مكان خارجها
+            document.addEventListener("click", function (event) {
+                if (!notificationContainer.contains(event.target) && !notificationIcon.contains(event.target)) {
+                    notificationContainer.classList.remove("show-notifications");
+                }
+            });
+
+            // مسح الإشعارات
+            clearNotificationsBtn.addEventListener("click", function () {
+                renderNotifications([]);
+            });
+        });
+    
+    ////////////////// category///////////////////
+    let scrollIndex = 0;
+        const visibleCards = 3;
+        let totalCards = 0;
+        const slider = document.getElementById("category-slider");
+
+        fetch("categories.json")
+            .then(response => response.json())
+            .then(data => {
+                totalCards = data.categories.length;
+                data.categories.forEach(category => {
+                    let card = document.createElement("div");
+                    card.classList.add("card");
+                    card.innerHTML = `
+                        <img src="${category.image}" class="card-img-top" alt="${category.name}" >
+                        <div class="card-body">
+                            <h5 class="card-title">${category.name}</h5>
+                            <p class="card-text">${category.description}</p>
+                            <a href="pro.html?category_id=${category.category_id}" class="btn btn-primary">More</a>
+                        </div>
+                    `;
+                    slider.appendChild(card);
+                });
+            });
+
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        function scrollLeft() {
+            if (scrollIndex > 0) {
+                scrollIndex--;
+                updateScroll();
+            }
+        }
+
+        function scrollRight() {
+            if (scrollIndex < totalCards - visibleCards) {
+                scrollIndex++;
+                updateScroll();
+            }
+        }
+
+        function updateScroll() {
+            slider.style.transform = `translateX(-${scrollIndex * 340}px)`;
+            updateControls();
+        }
+
+        function updateControls() {
+            // تحديث الأزرار لإخفائها حسب الحالة
+            prevBtn.classList.toggle("d-none", scrollIndex === 0);
+            nextBtn.classList.toggle("d-none", scrollIndex === totalCards - visibleCards);
+        }
+
+        // إضافة أحداث الأزرار
+        prevBtn.addEventListener("click", scrollLeft);
+        nextBtn.addEventListener("click", scrollRight);
+    // ///////////comments/////////////////////
+     // ////////////////comments///////////////////////////
+     let commentsScrollIndex = 0;
+        const visibleCommentsCards = 3;
+        let totalCommentsCards = 0;
+        const commentsSlider = document.getElementById("comments-slider");
+
+        // Fetch comments data from JSON file
+        fetch('./comments.json')
+            .then(response => response.json())
+            .then(commentsData => {
+                commentsData.forEach(comment => {
+                    let card = document.createElement("div");
+                    card.classList.add("comments-card", "p-3", "text-center", "shadow");
+
+                    let stars = '';
+                    for (let i = 1; i <= 5; i++) {
+                        stars += i <= comment.rating
+                            ? '<i class="fas fa-star"></i>'
+                            : '<i class="far fa-star"></i>';
+                    }
+
+                    card.innerHTML = `
+                        <img src="${comment.image}" class="comments-card-img" alt="${comment.user}">
+                        <div class="comments-card-body">
+                            <h5 class="comments-card-title">${comment.user}</h5>
+                            <div class="comments-stars">${stars}</div>
+                            <p class="comments-card-text">"${comment.comment}"</p>
+                        </div>
+                    `;
+                    commentsSlider.appendChild(card);
+                });
+
+                totalCommentsCards = commentsData.length;
+                updateCommentsControls();
+            })
+            .catch(error => console.error('Error loading comments:', error));
+
+        function updateCommentsControls() {
+            document.getElementById("comments-prev-btn").classList.toggle("d-none", commentsScrollIndex === 0);
+            document.getElementById("comments-next-btn").classList.toggle("d-none", commentsScrollIndex >= totalCommentsCards - visibleCommentsCards);
+        }
+
+        document.getElementById("comments-prev-btn").addEventListener("click", () => {
+            if (commentsScrollIndex > 0) commentsScrollIndex--;
+            commentsSlider.style.transform = `translateX(-${commentsScrollIndex * 340}px)`;
+            updateCommentsControls();
+        });
+
+        document.getElementById("comments-next-btn").addEventListener("click", () => {
+            if (commentsScrollIndex < totalCommentsCards - visibleCommentsCards) commentsScrollIndex++;
+            commentsSlider.style.transform = `translateX(-${commentsScrollIndex * 340}px)`;
+            updateCommentsControls();
+        });
+
+        updateCommentsControls();
+
+    </script>
+
+</body>
+
+</html>

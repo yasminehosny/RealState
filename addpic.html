@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Profile Picture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid#15304a;
+            display: block;
+            margin: 0 auto 20px;
+            object-fit: cover;
+        }
+
+        .upload-btn, .next-btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            background:#15304a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .upload-btn:hover, .next-btn:hover {
+            background: #001327;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Upload Your Profile Picture</h2>
+        <img id="preview" src="https://via.placeholder.com/150" class="profile-pic" alt="">
+        <input type="file" id="fileInput" accept="image/*">
+        <button class="upload-btn" onclick="document.getElementById('fileInput').click();">Choose Image</button>
+        <button class="next-btn" onclick="goToLogin()">Next</button>
+    </div>
+
+    <script>
+        document.getElementById("fileInput").addEventListener("change", function(event) {
+            let file = event.target.files[0];
+
+            if (file) {
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById("preview").src = e.target.result;
+                    localStorage.setItem("profilePic", e.target.result); 
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+      
+        window.onload = function() {
+            let savedImage = localStorage.getItem("profilePic");
+            if (savedImage) {
+                document.getElementById("preview").src = savedImage;
+            }
+        };
+
+        function goToLogin() {
+            window.location.href = "login.html"; 
+        }
+    </script>
+
+</body>
+</html>

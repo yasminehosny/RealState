@@ -1,0 +1,98 @@
+[
+    {
+        "user": "John Doe",
+        "image": "./images/images (1).jfif",
+        "rating": 5,
+        "comment": "Amazing experience! Highly recommended."
+    },
+    {
+        "user": "Jane Smith",
+        "image": "./images/images (2).jfif",
+        "rating": 4,
+        "comment": "Good service, but there is room for improvement."
+    },
+    {
+        "user": "Mark Wilson",
+        "image": "./images/images (1).jfif",
+        "rating": 3,
+        "comment": "Average experience, nothing special."
+    },
+    {
+        "user": "Emily Davis",
+        "image": "./images/images (2).jfif",
+        "rating": 5,
+        "comment": "Excellent service and friendly staff."
+    },
+    {
+        "user": "Michael Brown",
+        "image": "./images/images (1).jfif",
+        "rating": 2,
+        "comment": "Not satisfied with the experience."
+    },
+    {
+        "user": "Sarah Johnson",
+        "image": "./images/images (2).jfif",
+        "rating": 4,
+        "comment": "Loved it! Would definitely come back."
+    },
+    {
+        "user": "Chris Evans",
+        "image": "./images/images (1).jfif",
+        "rating": 5,
+        "comment": "One of the best experiences I've had."
+    },
+    {
+        "user": "Anna Lee",
+        "image": "./images/images (2).jfif",
+        "rating": 3,
+        "comment": "Decent service, but not exceptional."
+    },
+    {
+        "user": "John Doe",
+        "image": "./images/images (1).jfif",
+        "rating": 5,
+        "comment": "Amazing experience! Highly recommended."
+    },
+    {
+        "user": "Jane Smith",
+        "image": "./images/images (2).jfif",
+        "rating": 4,
+        "comment": "Good service, but there is room for improvement."
+    },
+    {
+        "user": "Mark Wilson",
+        "image": "./images/images (1).jfif",
+        "rating": 3,
+        "comment": "Average experience, nothing special."
+    },
+    {
+        "user": "Emily Davis",
+        "image": "./images/images (2).jfif",
+        "rating": 5,
+        "comment": "Excellent service and friendly staff."
+    },
+    {
+        "user": "Michael Brown",
+        "image": "./images/images (1).jfif",
+        "rating": 2,
+        "comment": "Not satisfied with the experience."
+    },
+    {
+        "user": "Sarah Johnson",
+        "image": "./images/images (2).jfif",
+        "rating": 4,
+        "comment": "Loved it! Would definitely come back."
+    },
+    {
+        "user": "Chris Evans",
+        "image": "./images/images (1).jfif",
+        "rating": 5,
+        "comment": "One of the best experiences I've had."
+    },
+    {
+        "user": "Anna Lee",
+        "image": "./images/images (2).jfif",
+        "rating": 3,
+        "comment": "Decent service, but not exceptional."
+    }
+]

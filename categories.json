@@ -1,0 +1,40 @@
+{
+  "categories": [
+    {
+      "category_id": 1,
+      "name": "Residential",
+      "description": "Properties intended for living purposes.",
+      "image": "images/img1.png"
+    },
+    {
+      "category_id": 2,
+      "name": "Recreational",
+      "description": "Properties used for leisure and entertainment.",
+      "image": "images/img3.png"
+    },
+    {
+      "category_id": 3,
+      "name": "Commercial",
+      "description": "Properties for business and commercial use.",
+      "image": "images/img4.png"
+    },
+    {
+      "category_id": 4,
+      "name": "Agricultural",
+      "description": "Land and properties used for farming and agriculture.",
+      "image": "images/img5.png"
+    },
+    {
+      "category_id": 5,
+      "name": "Educational",
+      "description": "Properties used for schools, universities, and training centers.",
+      "image": "images/img6.jpg"
+    },
+    {
+      "category_id": 6,
+      "name": "Industrial",
+      "description": "Properties designed for manufacturing and industry.",
+      "image": "images/img7.jpg"
+    }
+  ]
+}

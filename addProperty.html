@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Ad Form</title>
+    
+    <!-- تحميل Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        body {
+            background: url('./download\ \(1\).jpeg') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        
+        .form-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+       
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+       
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-control:focus {
+            border-color: #ff8c00;
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        }
+
+     
+        .btn-primary {
+            background: #ff8c00;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #ffae42;
+            box-shadow: 0px 5px 15px rgba(255, 140, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 class="text-center mb-4" style="color: #ff9100;">Add Property</h2>
+    <div class="row justify-content-center">
+      <form id="propertyForm" class="col-lg-8 col-md-10 col-sm-12 form-container">
+
+        
+        <div class="row">
+          <div class="form-group mb-3 col-md-6">
+            <label for="category_name">Category:</label>
+            <select id="category_name" class="form-control" required>
+              <option value="House">House</option>
+              <option value="Villa">Villa</option>
+              <option value="Office">Office</option>
+              <option value="Restaurant">Restaurant</option>
+            </select>
+          </div>
+
+          <div class="form-group mb-3 col-md-6">
+            <label for="address">Address:</label>
+            <input type="text" id="address" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group mb-3 col-md-6">
+            <label for="price">Price:</label>
+            <input type="number" id="price" class="form-control" required>
+          </div>
+
+          <div class="form-group mb-3 col-md-6">
+            <label for="status">Status:</label>
+            <select id="status" class="form-control" required>
+              <option value="Rent">Rent</option>
+              <option value="Sell">Sell</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group mb-3 col-md-6">
+            <label for="image">Image:</label>
+            <input type="file" id="image" class="form-control" accept="image/*" required>
+          </div>
+
+          <div class="form-group mb-3 col-md-6">
+            <label for="area">Area (m²):</label>
+            <input type="number" id="area" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group mb-3 col-md-6">
+            <label for="rooms">Number of Rooms:</label>
+            <input type="number" id="rooms" class="form-control" required>
+          </div>
+
+          <div class="form-group mb-3 col-md-6">
+            <label for="bathrooms">Number of Bathrooms:</label>
+            <input type="number" id="bathrooms" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="description">Description:</label>
+          <textarea id="description" class="form-control" required></textarea>
+        </div>
+
+        <div class="d-flex justify-content-center mt-3">
+          <button type="submit" class="btn btn-primary">Add Ad</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- تحميل Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("propertyForm");
+        const fields = ["category_name", "address", "price", "status", "area", "rooms", "bathrooms", "description"];
+        
+      
+        fields.forEach(field => {
+            const savedValue = localStorage.getItem(field);
+            if (savedValue) document.getElementById(field).value = savedValue;
+        });
+
+        
+        fields.forEach(field => {
+            document.getElementById(field).addEventListener("input", function () {
+                localStorage.setItem(field, this.value);
+            });
+        });
+
+    
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            
+            const propertyData = {};
+            fields.forEach(field => {
+                propertyData[field] = document.getElementById(field).value;
+            });
+
+  
+            let ads = JSON.parse(localStorage.getItem("ads")) || [];
+            ads.push(propertyData);
+            localStorage.setItem("ads", JSON.stringify(ads));
+
+            fields.forEach(field => localStorage.removeItem(field));
+            form.reset();
+            
+            alert("Added succsesfully");
+        });
+    });
+  </script>
+</body>
+</html>

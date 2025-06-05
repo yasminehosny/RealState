@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Properties</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color:  #f39c12;
+            font-size: 36px;
+        }
+
+        .properties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+
+        .property-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transform: scale(1);
+            transition: transform 0.3s ease-in-out;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .property-card:hover {
+            transform: scale(1.05);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .property-details {
+            padding: 20px;
+            text-align: right;
+        }
+
+        .property-details h3 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .property-details p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 18px;
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #f4f4f4;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color:  #f39c12;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e67e22 ;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Properties</h1>
+        <div id="properties" class="properties">
+            <!-- Cards will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('properties.json')
+                .then(response => response.json())
+                .then(data => {
+                    const propertiesContainer = document.getElementById('properties');
+
+                    data.properties.forEach(property => {
+                        const card = document.createElement('div');
+                        card.classList.add('property-card');
+
+                        card.innerHTML = `
+    <img src="${property.images[0]}" alt="" class="property-image">
+    <div class="property-details">
+        <h3>${property.address}</h3>
+        <p>${property.description}</p>
+        <span class="price">${property.price}</span>
+    </div>
+    <div class="buttons">
+        <button onclick="editProperty(${property.property_id})">Edit</button>
+        <button onclick="deleteProperty(${property.property_id})">Delete</button>
+        <button onclick="otherAction(${property.property_id})">Booking</button>
+    </div>
+`;
+
+                        
+                        propertiesContainer.appendChild(card);
+                    });
+                });
+        });
+
+        function editProperty(property_id) {
+    window.location.href = `edit.html?id=${property_id}`;
+}
+
+
+
+        function deleteProperty(id) {
+            const confirmation = confirm('Are you sure you want to delete this property?');
+            if (confirmation) {
+                alert(`Delete property number ${id}`);
+            }
+        }
+
+        function otherAction() {
+            window.location.href = `mybooking.html`;
+}
+
+    </script>
+</body>
+</html>

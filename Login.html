@@ -1,0 +1,140 @@
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Login</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+     <link rel="stylesheet" href="styles.css">
+     <style>
+         body {
+             background-color: #f7f7f7;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             height: 100vh;
+         }
+ 
+         .container {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             width: 100%;
+         }
+ 
+         .form-box {
+             background: white;
+             padding: 30px;
+             border-radius: 12px;
+             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+             width: 400px;
+             text-align: center;
+         }
+ 
+         h2 {
+             margin-bottom: 10px;
+             color: #333;
+         }
+ 
+         .input-box {
+             display: flex;
+             align-items: center;
+             background: #f1f1f1;
+             padding: 10px;
+             border-radius: 8px;
+             margin-bottom: 15px;
+         }
+ 
+         .input-box i {
+             margin-right: 10px;
+             color: #666;
+         }
+ 
+         .input-box input {
+             border: none;
+             outline: none;
+             background: transparent;
+             width: 100%;
+             padding: 5px;
+             font-size: 16px;
+         }
+ 
+         .btn-primary {
+             background:#15304a;
+             color: white;
+             padding: 10px;
+             width: 100%;
+             border: none;
+             border-radius: 8px;
+             cursor: pointer;
+             font-size: 16px;
+             margin-top: 10px;
+         }
+ 
+         .btn-primary:hover {
+             background: #0b1d31;
+         }
+ 
+         .footer-text {
+             margin-top: 15px;
+             font-size: 14px;
+         }
+ 
+         .footer-text a {
+             color: #007bff;
+             text-decoration: none;
+         }
+ 
+         .footer-text a:hover {
+             text-decoration: underline;
+         }
+     </style>
+ </head>
+ <body>
+     <div class="container">
+         <div class="form-box">
+             <h2 class="text-center">Login</h2>
+             <form id="login-form">
+                 <div class="input-box">
+                     <i class="fa fa-envelope"></i>
+                     <input type="email" placeholder="Email" required id="email">
+                 </div>
+                 <div class="input-box">
+                     <i class="fa fa-lock"></i>
+                     <input type="password" placeholder="Password" required id="password">
+                 </div>
+                 <button type="submit" class="btn-primary">Login</button>
+             </form>
+             <p class="footer-text">Don't have an account? <a href="Register.html">Register</a></p>
+             <p class="footer-text">Forget Password <a href="forgetPassword.html">forget password</a></p>
+
+         </div>
+     </div>
+ 
+     <script>
+         document.getElementById("login-form").addEventListener("submit", function(event) {
+             event.preventDefault(); 
+ 
+             let email = document.getElementById("email").value.trim();
+             let password = document.getElementById("password").value;
+ 
+             let storedUserData = localStorage.getItem("userData");
+ 
+             if (storedUserData) {
+                 let userData = JSON.parse(storedUserData);
+                 if (email === userData.email && password === userData.password) {
+                     alert("تم تسجيل الدخول بنجاح!");
+                     window.location.href = "index.html";
+                 } else {
+                     alert("البريد الإلكتروني أو كلمة المرور غير صحيحة!");
+                 }
+             } else {
+                 alert("لا يوجد حساب مسجل بهذا البريد الإلكتروني.");
+             }
+         });
+     </script>
+     <script src="js/scripts.js"></script>
+ </body>
+ </html>
+ 

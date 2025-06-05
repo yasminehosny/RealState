@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="css/notifications.css">
+</head>
+<body>
+
+    <div class="notification">
+        <div class="notification_container">
+            <div class="title-bar">
+                <h2 class="title">🔔 Notifications</h2>
+                <button id="clearNotifications" class="clear_btn">Clear All</button>
+            </div> <!--  title-bar-->
+            <ul id="notificationList" class="notification_list">
+                <li class="loading">Loading notifications...</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const notificationList = document.getElementById("notificationList");
+            const clearNotificationsBtn = document.getElementById("clearNotifications");
+
+            async function fetchNotifications() {
+                try {
+                    const response = await fetch("notifications.json");
+                    const notifications = await response.json();
+                    renderNotifications(notifications);
+                } catch (error) {
+                    notificationList.innerHTML = '<li class="error">Failed to load notifications.</li>';
+                    console.error("Error fetching notifications:", error);
+                }
+            }
+
+            function renderNotifications(notifications) {
+                notificationList.innerHTML = ""; 
+                if (notifications.length === 0) {
+                    notificationList.innerHTML = '<li class="loading">No notifications available</li>';
+                    return;
+                }
+                
+                notifications.forEach(notification => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = notification.text;
+                    notificationList.appendChild(listItem);
+                });
+            }
+
+            clearNotificationsBtn.addEventListener("click", function () {
+                renderNotifications([]); 
+            });
+
+            fetchNotifications(); 
+        });
+    </script>
+
+</body>
+</html>

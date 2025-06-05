@@ -1,0 +1,28 @@
+[
+    {
+        "id": 1,
+        "text": "Your payment was successful!",
+        "read": false
+    },
+    {
+        "id": 2,
+        "text": "Your appointment has been confirmed.",
+        "read": true
+    },
+    {
+        "id": 3,
+        "text": "New property added that matches your interest.",
+        "read": false
+    },
+    {
+        "id": 4,
+        "text": "Reminder: Your property listing is about to expire.",
+        "read": false
+    },
+    {
+        "id": 5,
+        "text": "Your rental payment is due in 5 days.",
+        "read": true
+    }
+    
+]

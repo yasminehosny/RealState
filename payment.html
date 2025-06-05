@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .payment-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        
+        .btn-warning:hover {
+            background-color: #e68a14;
+            border-color: #e68a14;
+        }
+        h3 {
+            color: #0b3553;
+        }
+        label {
+            color: #0b3553;
+        }
+        select, input {
+            border: 1px solid #0b3553;
+        }
+        select:focus, input:focus {
+            border-color: #ff9f1a;
+            box-shadow: 0 0 5px rgba(255, 159, 26, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="payment-container">
+            <h3 class="text-center">Payment Page</h3>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="paymentMethod">Select Payment Method</label>
+                    <select id="paymentMethod" class="form-control" required>
+                        <option value="">Choose...</option>
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="vodafone">Vodafone Cash</option>
+                        <option value="instapay">InstaPay</option>
+                        <option value="stripe">Stripe</option>
+                        <option value="paymob">Paymob</option>
+                    </select>
+                </div>
+                
+                <!-- Card Payment Fields -->
+                <div id="cardPayment" class="hidden">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="16">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Expiry Date</label>
+                            <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>CVV</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vodafone Cash -->
+                <div id="vodafonePayment" class="hidden">
+                    <div class="form-group">
+                        <label>Vodafone Cash Number</label>
+                        <input type="text" class="form-control" id="vodafoneNumber" placeholder="01XXXXXXXXX" maxlength="11">
+                    </div>
+                </div>
+                
+                <!-- InstaPay -->
+                <div id="instapayPayment" class="hidden">
+                    <div class="form-group">
+                        <label>InstaPay ID</label>
+                        <input type="text" class="form-control" id="instapayId" placeholder="Enter InstaPay ID">
+                    </div>
+                </div>
+
+                <!-- Stripe Payment Fields -->
+                <div id="stripePayment" class="hidden">
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" class="form-control" id="stripeCardNumber" placeholder="1234 5678 9012 3456" maxlength="16">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Expiry Date</label>
+                            <input type="text" class="form-control" id="stripeExpiryDate" placeholder="MM/YY" maxlength="5">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>CVV</label>
+                            <input type="text" class="form-control" id="stripeCVV" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paymob Payment Fields -->
+                <div id="paymobPayment" class="hidden">
+                    <div class="form-group">
+                        <label>Paymob Account Number</label>
+                        <input type="text" class="form-control" id="paymobNumber" placeholder="Enter Paymob Account Number">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-warning btn-block">Proceed to Pay</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#paymentMethod').change(function () {
+                $('.hidden').hide(); // Hide all payment sections
+                let selectedMethod = $(this).val();
+                if (selectedMethod) {
+                    $('#' + selectedMethod + 'Payment').show();
+                }
+            });
+
+            $('#paymentForm').submit(function (e) {
+                e.preventDefault();
+                let method = $('#paymentMethod').val();
+                if (!method) {
+                    alert('Please select a payment method');
+                    return;
+                }
+
+                let isValid = true;
+                if (method === 'card' || method === 'stripe') {
+                    let cardNumber = method === 'card' ? $('#cardNumber').val() : $('#stripeCardNumber').val();
+                    let expiryDate = method === 'card' ? $('#expiryDate').val() : $('#stripeExpiryDate').val();
+                    let cvv = method === 'card' ? $('#cvv').val() : $('#stripeCVV').val();
+                    if (cardNumber.length !== 16 || isNaN(cardNumber)) isValid = false;
+                    if (!/^(0[1-9]|1[0-2])\/(\d{2})$/.test(expiryDate)) isValid = false;
+                    if (cvv.length !== 3 || isNaN(cvv)) isValid = false;
+                } else if (method === 'vodafone') {
+                    let vodafoneNumber = $('#vodafoneNumber').val();
+                    if (vodafoneNumber.length !== 11 || isNaN(vodafoneNumber)) isValid = false;
+                } else if (method === 'instapay') {
+                    let instapayId = $('#instapayId').val();
+                    if (instapayId.length < 5) isValid = false;
+                } else if (method === 'paymob') {
+                    let paymobNumber = $('#paymobNumber').val();
+                    if (paymobNumber.length < 5) isValid = false;
+                }
+
+                if (!isValid) {
+                    alert('Please enter valid payment details');
+                    return;
+                }
+
+                alert('Payment Successful!');
+            });
+        });
+    </script>
+</body>
+</html>
