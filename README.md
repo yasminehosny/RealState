@@ -64,3 +64,15 @@ A full-featured real estate platform built with **Node.js**, **Express**, and **
 
 ## 📁 Folder Structure (Example)
 
+project/
+│
+├── models/             ← Mongoose schemas for MongoDB (User, Property, Booking, etc.)
+├── routes/             ← All route files (auth, user, chat, admin, etc.)
+├── views/              ← EJS templates for rendering frontend pages
+├── public/             ← Static files (CSS, images, client-side JavaScript)
+├── utils/              ← Helper files (email sending, payment integration, etc.)
+│
+├── app.js              ← Main application file that starts the server
+├── addAdmin.js         ← Script to add a default admin user
+├── package.json        ← Project configuration and dependencies
+├── package-lock.json   ← Detailed dependency versions for consistent installs
